@@ -601,7 +601,7 @@ function add_extra_field( $user )
 			</tr>
 			<tr>
 				<th><label for="user_place">Место в игре</label></th>
-				<td><input type="number" name="user_place" value="<?php echo esc_attr(get_the_author_meta('user_place', $user->ID)); ?>" class="regular-text" /></td>
+				<td><input type="text" name="user_place" value="<?php echo esc_attr(get_the_author_meta('user_place', $user->ID)); ?>" class="regular-text" /></td>
 			</tr>
 			<tr>
 				<th><label for="last_date">Дата последней игры</label></th>
@@ -642,3 +642,15 @@ function get_iso_code($searchCountry){
 }
 
 add_action( 'get_iso_code_action', 'get_iso_code' );
+
+add_action( 'admin_head', 'cron_activation' );
+function cron_activation() {
+	if( ! wp_next_scheduled( 'set_champ_list_action' ) ) {
+		wp_schedule_event( time(), 'hourly', 'set_champ_list_action');
+	}
+}
+
+add_action( 'set_champ_list_action', 'set_champ_list' );
+function set_champ_list(){
+	update_user_meta(20, 'user_place', sanitize_text_field(rand() . ' ' . date('G:i:s')));
+}
