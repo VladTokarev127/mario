@@ -636,12 +636,89 @@ function send_data()
 	}
 }
 
-function get_iso_code($searchCountry){
+add_action('wp_ajax_get_sorted_data', 'get_sorted_data');
+add_action('wp_ajax_nopriv_get_sorted_data', 'get_sorted_data');
+function get_sorted_data()
+{
+	global $wpdb;
+	$filter = $_POST['filter'];
+	$sort = $_POST['sort'];
+	$counts = $_POST['counts'];
+	$currentPage = $_POST['currentPage'] - 1;
+	if ($currentPage !== 0) {
+		$currentPage = $currentPage * $counts;
+	}
+	$leaders = $wpdb->get_results("SELECT * FROM wp_game_leader ORDER BY $filter $sort LIMIT $currentPage, $counts");
+	$maxScore = $wpdb->get_var("SELECT user_score FROM wp_game_leader LIMIT 1");
+	$newTable = '';
 	$countries = include_once get_template_directory() . '/inc/countries.php';
-	print_r($countries[$searchCountry]);
+	foreach($leaders as $key=>$leader) {
+		$ID = $leader->newid;
+		$userID = $leader->ID;
+		$userScore = $leader->user_score;
+		$userScoreText = number_format($leader->user_score, 0, '.', ' ');;
+		$userLastDate = $leader->last_date;
+		$userProgress = floor($userScore * 100 / $maxScore);
+		um_fetch_user($userID);
+		$userPhoto = um_user('profile_photo', 64);
+		$userLogin = um_user('user_login');
+		$userName = um_user('first_name');
+		$userCountry = um_user('country');
+		$isoCountry = strtolower($countries[$userCountry]);
+		$userEmail = um_user('user_email');
+		$count = $wpdb->get_var("SELECT COUNT(*) FROM wp_comments WHERE comment_author_email = '$userEmail'");
+		$userLink = '/user/' . $userLogin;
+		$userClassForFirstsPlace = '';
+		if ($ID == 1) {
+			$userClassForFirstsPlace = 'table__first-place';
+		} elseif ($ID == 2) {
+			$userClassForFirstsPlace = 'table__second-place';
+		} elseif ($ID == 3) {
+			$userClassForFirstsPlace = 'table__third-place';
+		}
+		$newTable .= "
+		<tr class='$userClassForFirstsPlace'>
+			<td class='table__place'>$ID</td>
+			<td class='table__user'>
+				<div class='table__user-wrapper'>
+					<div class='table__user-image'><a href='$userLink'>$userPhoto</a></div>
+					<div class='table__user-info'>
+						<div class='table__user-name'>$userName</div>
+						<div class='table__user-id'><a href='$userLink'>@$userLogin</a></div>
+					</div>
+				</div>
+			</td>
+			<td class='table__country'>
+				<img src='/wp-content/themes/supermario/img/flags/$isoCountry.svg' alt='$userCountry'>
+			</td>
+			<td class='table__points'>$userScoreText</td>
+			<td class='table__progress'>
+				<div class='table__progress-wrapper'>
+					<div class='table__progress-line' style='width: $userProgress%;'></div>
+				</div>
+			</td>
+			<td class='table__comments'><a href='#'>$count</a></td>
+			<td class='table__lastgame'>$userLastDate</td>
+		</tr>
+		";
+	}
+	print_r($newTable);
 }
 
-add_action( 'get_iso_code_action', 'get_iso_code' );
+function comment_count($email){
+	global $wpdb;
+	$count = $wpdb->get_var("SELECT COUNT(*) FROM wp_comments WHERE comment_author_email = '$email'");
+	echo $count;
+}
+
+add_action( 'comment_count_action', 'comment_count', 10, 1 );
+
+function get_iso_code($searchCountry){
+	$countries = include_once get_template_directory() . '/inc/countries.php';
+	echo strtolower($countries[$searchCountry]);
+}
+
+add_action( 'get_iso_code_action', 'get_iso_code', 10, 1 );
 
 add_action( 'admin_head', 'cron_activation' );
 function cron_activation() {
@@ -656,12 +733,6 @@ function lts($a, $b) {
 	}
 	return ($a['user_score'] > $b['user_score']) ? -1 : 1;
 }
-function stl($a, $b) {
-	if ($a['user_score'] == $b['user_score']) {
-			return 0;
-	}
-	return ($a['user_score'] < $b['user_score']) ? -1 : 1;
-}
 
 function get_leaders() {
 	global $wpdb;
@@ -672,7 +743,7 @@ function get_leaders() {
 	$tempArray = [];
 	foreach($users as $user) {
 		$ID = $user->ID;
-		$userFullName = get_user_meta($ID, 'first_name', true) . ' ' . get_user_meta($ID, 'last_name', true);
+		$userFullName = get_user_meta($ID, 'first_name', true);
 		$userName = $user->user_nicename . '; ' . $userFullName;
 		$userScore = get_the_author_meta('user_score', $ID);
 		$lastDate = get_the_author_meta('last_date', $ID);
@@ -706,8 +777,6 @@ function get_leaders() {
 		);
 	}
 }
-
-// $leaders = $wpdb->get_results( "SELECT * FROM wp_game_leader");
 
 add_action( 'set_champ_list_action', 'set_champ_list' );
 function set_champ_list(){

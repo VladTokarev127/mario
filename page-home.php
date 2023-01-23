@@ -601,19 +601,21 @@ $userPlaceText = $userPlace == 0 ? 'Не в рейтинге' : $userPlace;
 							<thead>
 								<tr>
 									<td class="table__place table__place_head">
-										#
-										<div class="table__sort">
-											<a href="#" class="table__sort-arrow table__sort-arrow_up table__sort-arrow_active">
-												<svg width="8" height="5" viewBox="0 0 8 5" xmlns="http://www.w3.org/2000/svg">
-													<path d="M4.40962 0.585167C4.21057 0.300808 3.78943 0.300807 3.59038 0.585166L1.05071 4.21327C0.81874 4.54466 1.05582 5 1.46033 5H6.53967C6.94418 5 7.18126 4.54466 6.94929 4.21327L4.40962 0.585167Z"/>
-												</svg>
-											</a>
-											<a href="#" class="table__sort-arrow table__sort-arrow_down">
-												<svg width="8" height="5" viewBox="0 0 8 5" xmlns="http://www.w3.org/2000/svg">
-													<path d="M4.40962 4.41483C4.21057 4.69919 3.78943 4.69919 3.59038 4.41483L1.05071 0.786732C0.81874 0.455343 1.05582 0 1.46033 0H6.53967C6.94418 0 7.18126 0.455342 6.94929 0.786731L4.40962 4.41483Z"/>
-												</svg>
-											</a>
-										</div>
+										<a href="#" class="js-sort-table active" data-filter="newid" data-sort="ASC" data-sort-default="ASC">
+											#
+											<span class="table__sort">
+												<span class="table__sort-arrow table__sort-arrow_up table__sort-arrow_active">
+													<svg width="8" height="5" viewBox="0 0 8 5" xmlns="http://www.w3.org/2000/svg">
+														<path d="M4.40962 0.585167C4.21057 0.300808 3.78943 0.300807 3.59038 0.585166L1.05071 4.21327C0.81874 4.54466 1.05582 5 1.46033 5H6.53967C6.94418 5 7.18126 4.54466 6.94929 4.21327L4.40962 0.585167Z"/>
+													</svg>
+												</span>
+												<span class="table__sort-arrow table__sort-arrow_down">
+													<svg width="8" height="5" viewBox="0 0 8 5" xmlns="http://www.w3.org/2000/svg">
+														<path d="M4.40962 4.41483C4.21057 4.69919 3.78943 4.69919 3.59038 4.41483L1.05071 0.786732C0.81874 0.455343 1.05582 0 1.46033 0H6.53967C6.94418 0 7.18126 0.455342 6.94929 0.786731L4.40962 4.41483Z"/>
+													</svg>
+												</span>
+											</span>
+										</a>
 									</td>
 									<td class="table__search table__search_head">
 										<div class="table__search-wrapper">
@@ -627,274 +629,99 @@ $userPlaceText = $userPlace == 0 ? 'Не в рейтинге' : $userPlace;
 									</td>
 									<td class="table__country table__country_head">Страна</td>
 									<td class="table__points table__points_head">
-										Очки
-										<div class="table__sort">
-											<a href="#" class="table__sort-arrow table__sort-arrow_up table__sort-arrow_active">
-												<svg width="8" height="5" viewBox="0 0 8 5" xmlns="http://www.w3.org/2000/svg">
-													<path d="M4.40962 0.585167C4.21057 0.300808 3.78943 0.300807 3.59038 0.585166L1.05071 4.21327C0.81874 4.54466 1.05582 5 1.46033 5H6.53967C6.94418 5 7.18126 4.54466 6.94929 4.21327L4.40962 0.585167Z"/>
-												</svg>
-											</a>
-											<a href="#" class="table__sort-arrow table__sort-arrow_down">
-												<svg width="8" height="5" viewBox="0 0 8 5" xmlns="http://www.w3.org/2000/svg">
-													<path d="M4.40962 4.41483C4.21057 4.69919 3.78943 4.69919 3.59038 4.41483L1.05071 0.786732C0.81874 0.455343 1.05582 0 1.46033 0H6.53967C6.94418 0 7.18126 0.455342 6.94929 0.786731L4.40962 4.41483Z"/>
-												</svg>
-											</a>
-										</div>
+										<a href="#" class="js-sort-table" data-filter="user_score" data-sort="DESC" data-sort-default="DESC">
+											Очки
+											<span class="table__sort">
+												<span class="table__sort-arrow table__sort-arrow_up table__sort-arrow_active">
+													<svg width="8" height="5" viewBox="0 0 8 5" xmlns="http://www.w3.org/2000/svg">
+														<path d="M4.40962 0.585167C4.21057 0.300808 3.78943 0.300807 3.59038 0.585166L1.05071 4.21327C0.81874 4.54466 1.05582 5 1.46033 5H6.53967C6.94418 5 7.18126 4.54466 6.94929 4.21327L4.40962 0.585167Z"/>
+													</svg>
+												</span>
+												<span class="table__sort-arrow table__sort-arrow_down">
+													<svg width="8" height="5" viewBox="0 0 8 5" xmlns="http://www.w3.org/2000/svg">
+														<path d="M4.40962 4.41483C4.21057 4.69919 3.78943 4.69919 3.59038 4.41483L1.05071 0.786732C0.81874 0.455343 1.05582 0 1.46033 0H6.53967C6.94418 0 7.18126 0.455342 6.94929 0.786731L4.40962 4.41483Z"/>
+													</svg>
+												</span>
+											</span>
+										</a>
 									</td>
 									<td class="table__progress table__progress_head">Прогресс</td>
 									<td class="table__comments table__comments_head">Комментарии</td>
 									<td class="table__lastgame table__lastgame_head">
-										Последняя игра
-										<div class="table__sort">
-											<a href="#" class="table__sort-arrow table__sort-arrow_up table__sort-arrow_active">
-												<svg width="8" height="5" viewBox="0 0 8 5" xmlns="http://www.w3.org/2000/svg">
-													<path d="M4.40962 0.585167C4.21057 0.300808 3.78943 0.300807 3.59038 0.585166L1.05071 4.21327C0.81874 4.54466 1.05582 5 1.46033 5H6.53967C6.94418 5 7.18126 4.54466 6.94929 4.21327L4.40962 0.585167Z"/>
-												</svg>
-											</a>
-											<a href="#" class="table__sort-arrow table__sort-arrow_down">
-												<svg width="8" height="5" viewBox="0 0 8 5" xmlns="http://www.w3.org/2000/svg">
-													<path d="M4.40962 4.41483C4.21057 4.69919 3.78943 4.69919 3.59038 4.41483L1.05071 0.786732C0.81874 0.455343 1.05582 0 1.46033 0H6.53967C6.94418 0 7.18126 0.455342 6.94929 0.786731L4.40962 4.41483Z"/>
-												</svg>
-											</a>
-										</div>
+										<a href="#" class="js-sort-table" data-filter="last_date" data-sort="DESC" data-sort-default="DESC">
+											Последняя игра
+											<span class="table__sort">
+												<span class="table__sort-arrow table__sort-arrow_up table__sort-arrow_active">
+													<svg width="8" height="5" viewBox="0 0 8 5" xmlns="http://www.w3.org/2000/svg">
+														<path d="M4.40962 0.585167C4.21057 0.300808 3.78943 0.300807 3.59038 0.585166L1.05071 4.21327C0.81874 4.54466 1.05582 5 1.46033 5H6.53967C6.94418 5 7.18126 4.54466 6.94929 4.21327L4.40962 0.585167Z"/>
+													</svg>
+												</span>
+												<span class="table__sort-arrow table__sort-arrow_down">
+													<svg width="8" height="5" viewBox="0 0 8 5" xmlns="http://www.w3.org/2000/svg">
+														<path d="M4.40962 4.41483C4.21057 4.69919 3.78943 4.69919 3.59038 4.41483L1.05071 0.786732C0.81874 0.455343 1.05582 0 1.46033 0H6.53967C6.94418 0 7.18126 0.455342 6.94929 0.786731L4.40962 4.41483Z"/>
+													</svg>
+												</span>
+											</span>
+										</a>
 									</td>
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td class="table__place">1</td>
+								<?php
+								global $wpdb;
+								$leaders = $wpdb->get_results("SELECT * FROM wp_game_leader ORDER BY `newid` ASC LIMIT 0, 10");
+								$count = $wpdb->get_var("SELECT COUNT(*) FROM wp_game_leader");
+								$maxScore = $leaders[0]->user_score;
+								foreach($leaders as $key=>$leader):
+									$ID = $leader->newid;
+									$userID = $leader->ID;
+									$userScore = $leader->user_score;
+									$userLastDate = $leader->last_date;
+									$userProgress = floor($userScore * 100 / $maxScore);
+									um_fetch_user($userID);
+									$userPhoto = um_user('profile_photo', 64);
+									$userLogin = um_user('user_login');
+									$userName = um_user('first_name');
+									$userCountry = um_user('country');
+									$userEmail = um_user('user_email');
+									$userLink = '/user/' . $userLogin;
+									$userClassForFirstsPlace = '';
+									if ($ID == 1) {
+										$userClassForFirstsPlace = 'table__first-place';
+									} elseif ($ID == 2) {
+										$userClassForFirstsPlace = 'table__second-place';
+									} elseif ($ID == 3) {
+										$userClassForFirstsPlace = 'table__third-place';
+									}
+								?>
+								<tr class="<?php echo $userClassForFirstsPlace; ?>">
+									<td class="table__place"><?php echo $ID; ?></td>
 									<td class="table__user">
 										<div class="table__user-wrapper">
-											<div class="table__user-image"><a href="#"><img src="/wp-content/themes/supermario/img/user.jpg" alt="Username"></a></div>
+											<div class="table__user-image"><a href="<?php echo $userLink; ?>"><?php echo $userPhoto; ?></a></div>
 											<div class="table__user-info">
-												<div class="table__user-name">Username</div>
-												<div class="table__user-id"><a href="#">@username</a></div>
+												<div class="table__user-name"><?php echo $userName; ?></div>
+												<div class="table__user-id"><a href="<?php echo $userLink; ?>"><?php echo '@' . $userLogin; ?></a></div>
 											</div>
 										</div>
 									</td>
 									<td class="table__country">
-										<img src="/wp-content/themes/supermario/img/flags/ru.svg" alt="Russia">
+										<img src="/wp-content/themes/supermario/img/flags/<?php do_action('get_iso_code_action', $userCountry); ?>.svg" alt="<?php echo $userCountry; ?>">
 									</td>
-									<td class="table__points">583 050</td>
+									<td class="table__points"><?php echo number_format($userScore, 0, '.', ' '); ?></td>
 									<td class="table__progress">
 										<div class="table__progress-wrapper">
-											<div class="table__progress-line" style="width: 70%;"></div>
+											<div class="table__progress-line" style="width: <?php echo $userProgress; ?>%;"></div>
 										</div>
 									</td>
-									<td class="table__comments"><a href="#">133</a></td>
-									<td class="table__lastgame">10.02.2022</td>
+									<td class="table__comments"><a href="#"><?php do_action('comment_count_action', $userEmail); ?></a></td>
+									<td class="table__lastgame"><?php echo $userLastDate; ?></td>
 								</tr>
-								<tr>
-									<td class="table__place">2</td>
-									<td class="table__user">
-										<div class="table__user-wrapper">
-											<div class="table__user-image"><a href="#"><img src="/wp-content/themes/supermario/img/user.jpg" alt="Username"></a></div>
-											<div class="table__user-info">
-												<div class="table__user-name">Username</div>
-												<div class="table__user-id"><a href="#">@username</a></div>
-											</div>
-										</div>
-									</td>
-									<td class="table__country">
-										<img src="/wp-content/themes/supermario/img/flags/kz.svg" alt="Kazahstan">
-									</td>
-									<td class="table__points">455 990</td>
-									<td class="table__progress">
-										<div class="table__progress-wrapper">
-											<div class="table__progress-line" style="width: 70%;"></div>
-										</div>
-									</td>
-									<td class="table__comments"><a href="#">13</a></td>
-									<td class="table__lastgame">10.02.2022</td>
-								</tr>
-								<tr>
-									<td class="table__place">3</td>
-									<td class="table__user">
-										<div class="table__user-wrapper">
-											<div class="table__user-image"><a href="#"><img src="/wp-content/themes/supermario/img/user.jpg" alt="Username"></a></div>
-											<div class="table__user-info">
-												<div class="table__user-name">Username</div>
-												<div class="table__user-id"><a href="#">@username</a></div>
-											</div>
-										</div>
-									</td>
-									<td class="table__country">
-										<img src="/wp-content/themes/supermario/img/flags/kz.svg" alt="Kazahstan">
-									</td>
-									<td class="table__points">390 998</td>
-									<td class="table__progress">
-										<div class="table__progress-wrapper">
-											<div class="table__progress-line" style="width: 70%;"></div>
-										</div>
-									</td>
-									<td class="table__comments"><a href="#">1</a></td>
-									<td class="table__lastgame">10.02.2022</td>
-								</tr>
-								<tr>
-									<td class="table__place">4</td>
-									<td class="table__user">
-										<div class="table__user-wrapper">
-											<div class="table__user-image"><a href="#"><img src="/wp-content/themes/supermario/img/user.jpg" alt="Username"></a></div>
-											<div class="table__user-info">
-												<div class="table__user-name">Username</div>
-												<div class="table__user-id"><a href="#">@username</a></div>
-											</div>
-										</div>
-									</td>
-									<td class="table__country">
-										<img src="/wp-content/themes/supermario/img/flags/ru.svg" alt="Russia">
-									</td>
-									<td class="table__points">349 776</td>
-									<td class="table__progress">
-										<div class="table__progress-wrapper">
-											<div class="table__progress-line" style="width: 70%;"></div>
-										</div>
-									</td>
-									<td class="table__comments"><a href="#">0</a></td>
-									<td class="table__lastgame">10.02.2022</td>
-								</tr>
-								<tr>
-									<td class="table__place">5</td>
-									<td class="table__user">
-										<div class="table__user-wrapper">
-											<div class="table__user-image"><a href="#"><img src="/wp-content/themes/supermario/img/user.jpg" alt="Username"></a></div>
-											<div class="table__user-info">
-												<div class="table__user-name">Username</div>
-												<div class="table__user-id"><a href="#">@username</a></div>
-											</div>
-										</div>
-									</td>
-									<td class="table__country">
-										<img src="/wp-content/themes/supermario/img/flags/ru.svg" alt="Russia">
-									</td>
-									<td class="table__points">300 177</td>
-									<td class="table__progress">
-										<div class="table__progress-wrapper">
-											<div class="table__progress-line" style="width: 70%;"></div>
-										</div>
-									</td>
-									<td class="table__comments"><a href="#">133</a></td>
-									<td class="table__lastgame">10.02.2022</td>
-								</tr>
-								<tr>
-									<td class="table__place">6</td>
-									<td class="table__user">
-										<div class="table__user-wrapper">
-											<div class="table__user-image"><a href="#"><img src="/wp-content/themes/supermario/img/user.jpg" alt="Username"></a></div>
-											<div class="table__user-info">
-												<div class="table__user-name">Username</div>
-												<div class="table__user-id"><a href="#">@username</a></div>
-											</div>
-										</div>
-									</td>
-									<td class="table__country">
-										<img src="/wp-content/themes/supermario/img/flags/ru.svg" alt="Russia">
-									</td>
-									<td class="table__points">300 177</td>
-									<td class="table__progress">
-										<div class="table__progress-wrapper">
-											<div class="table__progress-line" style="width: 70%;"></div>
-										</div>
-									</td>
-									<td class="table__comments"><a href="#">133</a></td>
-									<td class="table__lastgame">10.02.2022</td>
-								</tr>
-								<tr>
-									<td class="table__place">7</td>
-									<td class="table__user">
-										<div class="table__user-wrapper">
-											<div class="table__user-image"><a href="#"><img src="/wp-content/themes/supermario/img/user.jpg" alt="Username"></a></div>
-											<div class="table__user-info">
-												<div class="table__user-name">Username</div>
-												<div class="table__user-id"><a href="#">@username</a></div>
-											</div>
-										</div>
-									</td>
-									<td class="table__country">
-										<img src="/wp-content/themes/supermario/img/flags/ru.svg" alt="Russia">
-									</td>
-									<td class="table__points">300 177</td>
-									<td class="table__progress">
-										<div class="table__progress-wrapper">
-											<div class="table__progress-line" style="width: 70%;"></div>
-										</div>
-									</td>
-									<td class="table__comments"><a href="#">133</a></td>
-									<td class="table__lastgame">10.02.2022</td>
-								</tr>
-								<tr>
-									<td class="table__place">8</td>
-									<td class="table__user">
-										<div class="table__user-wrapper">
-											<div class="table__user-image"><a href="#"><img src="/wp-content/themes/supermario/img/user.jpg" alt="Username"></a></div>
-											<div class="table__user-info">
-												<div class="table__user-name">Username</div>
-												<div class="table__user-id"><a href="#">@username</a></div>
-											</div>
-										</div>
-									</td>
-									<td class="table__country">
-										<img src="/wp-content/themes/supermario/img/flags/ru.svg" alt="Russia">
-									</td>
-									<td class="table__points">300 177</td>
-									<td class="table__progress">
-										<div class="table__progress-wrapper">
-											<div class="table__progress-line" style="width: 70%;"></div>
-										</div>
-									</td>
-									<td class="table__comments"><a href="#">133</a></td>
-									<td class="table__lastgame">10.02.2022</td>
-								</tr>
-								<tr>
-									<td class="table__place">9</td>
-									<td class="table__user">
-										<div class="table__user-wrapper">
-											<div class="table__user-image"><a href="#"><img src="/wp-content/themes/supermario/img/user.jpg" alt="Username"></a></div>
-											<div class="table__user-info">
-												<div class="table__user-name">Username</div>
-												<div class="table__user-id"><a href="#">@username</a></div>
-											</div>
-										</div>
-									</td>
-									<td class="table__country">
-										<img src="/wp-content/themes/supermario/img/flags/ru.svg" alt="Russia">
-									</td>
-									<td class="table__points">300 177</td>
-									<td class="table__progress">
-										<div class="table__progress-wrapper">
-											<div class="table__progress-line" style="width: 70%;"></div>
-										</div>
-									</td>
-									<td class="table__comments"><a href="#">133</a></td>
-									<td class="table__lastgame">10.02.2022</td>
-								</tr>
-								<tr>
-									<td class="table__place">10</td>
-									<td class="table__user">
-										<div class="table__user-wrapper">
-											<div class="table__user-image"><a href="#"><img src="/wp-content/themes/supermario/img/user.jpg" alt="Username"></a></div>
-											<div class="table__user-info">
-												<div class="table__user-name">Username</div>
-												<div class="table__user-id"><a href="#">@username</a></div>
-											</div>
-										</div>
-									</td>
-									<td class="table__country">
-										<img src="/wp-content/themes/supermario/img/flags/ru.svg" alt="Russia">
-									</td>
-									<td class="table__points">300 177</td>
-									<td class="table__progress">
-										<div class="table__progress-wrapper">
-											<div class="table__progress-line" style="width: 70%;"></div>
-										</div>
-									</td>
-									<td class="table__comments"><a href="#">133</a></td>
-									<td class="table__lastgame">10.02.2022</td>
-								</tr>
+								<?php endforeach; ?>
 							</tbody>
 						</table>
 						<div class="table__footer">
-							<div class="table__footer-total">1-10 из 100</div>
+							<div class="table__footer-total"><span class="table__footer-total_counts">1-10</span> из <?php echo $count; ?></div>
 							<div class="table__count">
 								<span>Показывать по:</span>
 								<div href="#" class="table__count-wrapper">
