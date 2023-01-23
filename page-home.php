@@ -671,6 +671,7 @@ $userPlaceText = $userPlace == 0 ? 'Не в рейтинге' : $userPlace;
 								global $wpdb;
 								$leaders = $wpdb->get_results("SELECT * FROM wp_game_leader ORDER BY `newid` ASC LIMIT 0, 10");
 								$count = $wpdb->get_var("SELECT COUNT(*) FROM wp_game_leader");
+								$maxPages = ceil($count / 10);
 								$maxScore = $leaders[0]->user_score;
 								foreach($leaders as $key=>$leader):
 									$ID = $leader->newid;
@@ -721,7 +722,7 @@ $userPlaceText = $userPlace == 0 ? 'Не в рейтинге' : $userPlace;
 							</tbody>
 						</table>
 						<div class="table__footer">
-							<div class="table__footer-total"><span class="table__footer-total_counts">1-10</span> из <?php echo $count; ?></div>
+							<div class="table__footer-total"><span class="table__footer-total_counts">1-10</span> из <span class="table__footer-total_max"><?php echo $count; ?></span></div>
 							<div class="table__count">
 								<span>Показывать по:</span>
 								<div href="#" class="table__count-wrapper">
@@ -739,16 +740,16 @@ $userPlaceText = $userPlace == 0 ? 'Не в рейтинге' : $userPlace;
 									</div>
 								</div>
 							</div>
-							<div class="table__pagination">
-								<a href="#" class="table__pagination-arrow table__pagination-arrow_prev table__pagination-arrow_disabled">
+							<div class="table__pagination" data-max-pages="<?php echo $maxPages; ?>" data-count="<?php echo $count; ?>">
+								<a href="#" class="table__pagination-arrow table__pagination-arrow_prev table__pagination-arrow_disabled" data-action="prev">
 									<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
 										<path d="M9.5 11L6.5 8L9.5 5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 									</svg>
 								</a>
 								<div class="table__pagination-count">
-									<span>1</span>/10
+									<span class="table__pagination-count_min">1</span>/<span class="table__pagination-count_max"><?php echo $maxPages; ?></span>
 								</div>
-								<a href="#" class="table__pagination-arrow table__pagination-arrow_next">
+								<a href="#" class="table__pagination-arrow table__pagination-arrow_next" data-action="next">
 									<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
 										<path d="M6.5 11L9.5 8L6.5 5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 									</svg>

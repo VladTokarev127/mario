@@ -645,13 +645,14 @@ function get_sorted_data()
 	$sort = $_POST['sort'];
 	$counts = $_POST['counts'];
 	$currentPage = $_POST['currentPage'] - 1;
+	$search = $_POST['search'];
 	if ($currentPage !== 0) {
 		$currentPage = $currentPage * $counts;
 	}
-	$leaders = $wpdb->get_results("SELECT * FROM wp_game_leader ORDER BY $filter $sort LIMIT $currentPage, $counts");
+	$leaders = $wpdb->get_results("SELECT * FROM wp_game_leader WHERE user_name LIKE '%$search%' ORDER BY $filter $sort LIMIT $currentPage, $counts");
 	$maxScore = $wpdb->get_var("SELECT user_score FROM wp_game_leader LIMIT 1");
 	$newTable = '';
-	$countries = include_once get_template_directory() . '/inc/countries.php';
+	$countries = include get_template_directory() . '/inc/countries.php';
 	foreach($leaders as $key=>$leader) {
 		$ID = $leader->newid;
 		$userID = $leader->ID;
@@ -714,7 +715,7 @@ function comment_count($email){
 add_action( 'comment_count_action', 'comment_count', 10, 1 );
 
 function get_iso_code($searchCountry){
-	$countries = include_once get_template_directory() . '/inc/countries.php';
+	$countries = include get_template_directory() . '/inc/countries.php';
 	echo strtolower($countries[$searchCountry]);
 }
 
