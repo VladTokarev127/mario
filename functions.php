@@ -601,7 +601,7 @@ function add_extra_field( $user )
 			</tr>
 			<tr>
 				<th><label for="user_place">Место в игре</label></th>
-				<td><input type="text" name="user_place" value="<?php echo esc_attr(get_the_author_meta('user_place', $user->ID)); ?>" class="regular-text" /></td>
+				<td><input type="number" name="user_place" value="<?php echo esc_attr(get_the_author_meta('user_place', $user->ID)); ?>" class="regular-text" /></td>
 			</tr>
 			<tr>
 				<th><label for="last_date">Дата последней игры</label></th>
@@ -650,7 +650,67 @@ function cron_activation() {
 	}
 }
 
+function lts($a, $b) {
+	if ($a['user_score'] == $b['user_score']) {
+			return 0;
+	}
+	return ($a['user_score'] > $b['user_score']) ? -1 : 1;
+}
+function stl($a, $b) {
+	if ($a['user_score'] == $b['user_score']) {
+			return 0;
+	}
+	return ($a['user_score'] < $b['user_score']) ? -1 : 1;
+}
+
+function get_leaders() {
+	global $wpdb;
+	$wpdb->query("TRUNCATE TABLE `wp_game_leader`");
+	$users = get_users([
+		'fields' => ['ID', 'user_nicename'],
+	]);
+	$tempArray = [];
+	foreach($users as $user) {
+		$ID = $user->ID;
+		$userFullName = get_user_meta($ID, 'first_name', true) . ' ' . get_user_meta($ID, 'last_name', true);
+		$userName = $user->user_nicename . '; ' . $userFullName;
+		$userScore = get_the_author_meta('user_score', $ID);
+		$lastDate = get_the_author_meta('last_date', $ID);
+		update_user_meta($ID, 'user_place', sanitize_text_field(0));
+		if (!empty($userScore)) {
+			array_push($tempArray, array('ID' => $ID, 'user_score' => $userScore, 'last_date' => $lastDate, 'user_name' => $userName));
+		}
+	}
+	uasort($tempArray, 'lts');
+	$leaderArray = array_slice($tempArray, 0, 100);
+	foreach($leaderArray as $key=>$leader) {
+		$userID = $leader['ID'];
+		$userScore = $leader['user_score'];
+		$lastDate = $leader['last_date'];
+		$userName = $leader['user_name'];
+		update_user_meta($userID, 'user_place', sanitize_text_field($key + 1));
+		$wpdb->insert(
+			$wpdb->prefix . 'game_leader',
+			array(
+				'ID' => $userID,
+				'user_score' => $userScore,
+				'last_date' => $lastDate,
+				'user_name' => $userName,
+			),
+			array(
+				'%d',
+				'%d',
+				'%s',
+				'%s'
+			)
+		);
+	}
+}
+
+// $leaders = $wpdb->get_results( "SELECT * FROM wp_game_leader");
+
 add_action( 'set_champ_list_action', 'set_champ_list' );
 function set_champ_list(){
-	update_user_meta(20, 'user_place', sanitize_text_field(rand() . ' ' . date('G:i:s')));
+	get_leaders();
+	// update_user_meta(20, 'user_place', sanitize_text_field(rand() . ' ' . date('G:i:s')));
 }

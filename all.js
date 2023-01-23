@@ -211,6 +211,32 @@ function setLives(e) {
 	updateDataElement(data.lives)
 }
 function storePlayerStats() {
+	// Отправка данных на сервер
+	if(window.parent.document.querySelector('.js-stopmario') !== null) {
+		let ajaxurl = window.location.origin + '/wp-admin/admin-ajax.php';
+		const formData = new FormData();
+		formData.append( 'action', 'send_data' );
+		formData.append( 'score', data.score.amount );
+		fetch(ajaxurl, {
+			method: 'POST',
+			body: formData
+		})
+		.then((response) => response.json())
+		.then((data) => {
+			console.log(data);
+			clearPlayerStats(),
+			setTimeout(gameRestart, 7e3);
+		})
+		.catch((error) => {
+			console.log('Send data - error');
+			console.error(error);
+			clearPlayerStats(),
+			setTimeout(gameRestart, 7e3);
+		});
+	} else {
+		clearPlayerStats(),
+		setTimeout(gameRestart, 7e3);
+	}
 	data.playerpower = player.power
 }
 function clearPlayerStats() {

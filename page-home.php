@@ -6,6 +6,8 @@ get_header();
 $userID = get_current_user_id();
 $userScore = get_the_author_meta('user_score', $userID);
 $userScoreText = empty($userScore) ? 'Пока нет' : number_format($userScore, 0, '.', ' ');
+$userPlace = get_the_author_meta('user_place', $userID);
+$userPlaceText = $userPlace == 0 ? 'Не в рейтинге' : $userPlace;
 ?>
 
 	<div class="content-wrapper">
@@ -38,7 +40,7 @@ $userScoreText = empty($userScore) ? 'Пока нет' : number_format($userScor
                         </a>
                         <div class="main-info__nav-text-wrap">
                             <p class="main-info__nav-text">Ваши очки: <b><?php echo $userScoreText; ?></b></p>
-                            <p class="main-info__nav-text">Место в рейтинге: <b>100</b></p>
+                            <p class="main-info__nav-text">Место в рейтинге: <b><?php echo $userPlaceText; ?></b></p>
                         </div>
                     </div>
                     <div class="main-info__nav-buttons">
@@ -88,7 +90,7 @@ $userScoreText = empty($userScore) ? 'Пока нет' : number_format($userScor
                         </div>
                         <div class="main-info__nav-text-wrap">
                             <p class="main-info__nav-text">Очки: <b><?php echo $userScoreText; ?></b></p>
-                            <p class="main-info__nav-text">Рейтинг: <b>10</b></p>
+                            <p class="main-info__nav-text">Рейтинг: <b><?php echo $userPlaceText; ?></b></p>
                         </div>
                     </div>
                     <div class="main-info__nav-buttons">
