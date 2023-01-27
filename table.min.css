@@ -211,7 +211,11 @@ body {
 	/* padding:0 15px; */
 	width: 100%;
 }
-
+.my-container h2 {
+    margin: 0px 0px -20px;
+    padding-top: 10px;
+    text-align: center;
+}
 .table {
 	border-collapse: collapse;
 	color: #2e2e2e;
@@ -252,11 +256,15 @@ body {
 }
 
 @media (max-width: 1199px) {
+	.table__attention::after {
+		display: none;
+	}
 	.table__attention {
-			-webkit-box-flex:1;
-			-ms-flex: 1 100%;
-			flex: 1 100%;
-			margin-bottom: 12px
+		padding-left: 0;
+		-webkit-box-flex:1;
+		-ms-flex: 1 100%;
+		flex: 1 100%;
+		margin-bottom: 12px
 	}
 }
 
@@ -297,7 +305,9 @@ body {
 	-o-transition: .3s ease-in-out;
 	transition: .3s ease-in-out
 }
-
+a.table__btn {
+    color: #009bd9;
+}
 @media (max-width: 575px) {
 	.table__btn {
 			font-size:13px
@@ -353,18 +363,19 @@ body {
 }
 
 .table tbody tr.table__first-place .table__user-wrapper:after {
-	background-image: url(../img/award.svg);
+	background-image: url(../img/favorite.png);
+	background-size: cover;
 	background-position: 50%;
 	background-repeat: no-repeat;
 	content: "";
-	height: 14px;
+	height: 21px;
+	width: 12px;
 	position: absolute;
 	right: 0;
-	top: 50%;
+	top: 55%;
 	-webkit-transform: translateY(-50%);
 	-ms-transform: translateY(-50%);
 	transform: translateY(-50%);
-	width: 13px
 }
 
 .table tbody tr.table__first-place .table__points {
@@ -399,8 +410,10 @@ body {
 	display: flex;
 	flex-direction: column;
 }
-
-.table__border_load::after {
+.table__container {
+	position: relative;
+}
+.table__container_load::after {
 	position: absolute;
 	left: 0;
 	top: 0;
@@ -648,8 +661,12 @@ body {
 	text-align: center
 }
 
-.table__country_head {
+.table__country_head{
 	text-align: left
+}
+
+.table__gamecount_head {
+	text-align: left !important
 }
 
 .table__country img {
@@ -697,14 +714,15 @@ body {
 }
 
 .table__comments {
-	text-align: center
+	text-align: center;
+	width: 145px;
 }
 
 .table__comments_head {
 	text-align: left
 }
 
-.table__comments a {
+.table__comments:not(.table__comments_head) a {
 	background: #cbebf8;
 	border-radius: 16px;
 	color: #009bd9;
@@ -723,14 +741,23 @@ body {
 .table__comments a:focus-visible,.table__comments a:hover {
 	opacity: .8
 }
-
+.table__gamecount {
+	text-align: center;
+	width: 11%;
+}
 .table__lastgame {
-	width: 30%
+	width: 20%
 }
 
 @media (max-width: 1199px) {
 	.table__lastgame {
 			width:228px
+	}
+	.table__gamecount {
+		width: 14%;
+	}
+	.table__comments {
+		width: 160px
 	}
 }
 

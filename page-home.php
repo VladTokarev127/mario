@@ -560,7 +560,7 @@ $userPlaceText = $userPlace == 0 ? 'Не в рейтинге' : $userPlace;
                     </div>
                     
                        <div id="out_mapselect" class="bar1">
-                        <div class="label"><a href="/mario-game/fullscreen.html"><img src="/mario-game/assets/img/fullscreen.png" width="16" alt="полный экран"> Full Screen</a></div>
+                        <div class="label"><a href="/fullscreen"><img src="/mario-game/assets/img/fullscreen.png" width="16" alt="полный экран"> Full Screen</a></div>
                        
                     </div>
 
@@ -591,6 +591,7 @@ $userPlaceText = $userPlace == 0 ? 'Не в рейтинге' : $userPlace;
 	  
 <section class="table-section">
 			<div class="my-container">
+					<h2>ТОП100 игроков Super Mario Bros.</h2>
 				<div class="table__top">
 					<div class="table__attention">Марио обновляет данные в таблице каждый час. В нее могут попасть только 100 лучших игроков.</div>
 					<a href="#" class="table__btn">Как попасть в рейтинговую таблицу</a>
@@ -646,7 +647,40 @@ $userPlaceText = $userPlace == 0 ? 'Не в рейтинге' : $userPlace;
 										</a>
 									</td>
 									<td class="table__progress table__progress_head">Прогресс</td>
-									<td class="table__comments table__comments_head">Комментарии</td>
+									<td class="table__gamecount table__gamecount_head">
+										<a href="#" class="js-sort-table" data-filter="game_count" data-sort="DESC" data-sort-default="DESC">
+											Кол-во игр
+											<span class="table__sort">
+												<span class="table__sort-arrow table__sort-arrow_up table__sort-arrow_active">
+													<svg width="8" height="5" viewBox="0 0 8 5" xmlns="http://www.w3.org/2000/svg">
+														<path d="M4.40962 0.585167C4.21057 0.300808 3.78943 0.300807 3.59038 0.585166L1.05071 4.21327C0.81874 4.54466 1.05582 5 1.46033 5H6.53967C6.94418 5 7.18126 4.54466 6.94929 4.21327L4.40962 0.585167Z"/>
+													</svg>
+												</span>
+												<span class="table__sort-arrow table__sort-arrow_down">
+													<svg width="8" height="5" viewBox="0 0 8 5" xmlns="http://www.w3.org/2000/svg">
+														<path d="M4.40962 4.41483C4.21057 4.69919 3.78943 4.69919 3.59038 4.41483L1.05071 0.786732C0.81874 0.455343 1.05582 0 1.46033 0H6.53967C6.94418 0 7.18126 0.455342 6.94929 0.786731L4.40962 4.41483Z"/>
+													</svg>
+												</span>
+											</span>
+										</a>
+									</td>
+									<td class="table__comments table__comments_head">
+										<a href="#" class="js-sort-table" data-filter="user_comments" data-sort="DESC" data-sort-default="DESC">
+											Комментарии
+											<span class="table__sort">
+												<span class="table__sort-arrow table__sort-arrow_up table__sort-arrow_active">
+													<svg width="8" height="5" viewBox="0 0 8 5" xmlns="http://www.w3.org/2000/svg">
+														<path d="M4.40962 0.585167C4.21057 0.300808 3.78943 0.300807 3.59038 0.585166L1.05071 4.21327C0.81874 4.54466 1.05582 5 1.46033 5H6.53967C6.94418 5 7.18126 4.54466 6.94929 4.21327L4.40962 0.585167Z"/>
+													</svg>
+												</span>
+												<span class="table__sort-arrow table__sort-arrow_down">
+													<svg width="8" height="5" viewBox="0 0 8 5" xmlns="http://www.w3.org/2000/svg">
+														<path d="M4.40962 4.41483C4.21057 4.69919 3.78943 4.69919 3.59038 4.41483L1.05071 0.786732C0.81874 0.455343 1.05582 0 1.46033 0H6.53967C6.94418 0 7.18126 0.455342 6.94929 0.786731L4.40962 4.41483Z"/>
+													</svg>
+												</span>
+											</span>
+										</a>
+									</td>
 									<td class="table__lastgame table__lastgame_head">
 										<a href="#" class="js-sort-table" data-filter="last_date" data-sort="DESC" data-sort-default="DESC">
 											Последняя игра
@@ -678,6 +712,8 @@ $userPlaceText = $userPlace == 0 ? 'Не в рейтинге' : $userPlace;
 									$userID = $leader->ID;
 									$userScore = $leader->user_score;
 									$userLastDate = $leader->last_date;
+									$userComments = $leader->user_comments;
+									$userGameCount = $leader->game_count;
 									$userProgress = floor($userScore * 100 / $maxScore);
 									um_fetch_user($userID);
 									$userPhoto = um_user('profile_photo', 64);
@@ -715,7 +751,8 @@ $userPlaceText = $userPlace == 0 ? 'Не в рейтинге' : $userPlace;
 											<div class="table__progress-line" style="width: <?php echo $userProgress; ?>%;"></div>
 										</div>
 									</td>
-									<td class="table__comments"><a href="#"><?php do_action('comment_count_action', $userEmail); ?></a></td>
+									<td class="table__gamecount"><?php echo $userGameCount; ?></td>
+									<td class="table__comments"><a href="#"><?php echo $userComments; ?></a></td>
 									<td class="table__lastgame"><?php echo $userLastDate; ?></td>
 								</tr>
 								<?php endforeach; ?>
