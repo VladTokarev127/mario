@@ -711,7 +711,7 @@ $userPlaceText = $userPlace == 0 ? 'Не в рейтинге' : $userPlace;
 									$ID = $leader->newid;
 									$userID = $leader->ID;
 									$userScore = $leader->user_score;
-									$userLastDate = $leader->last_date;
+									$userLastDate = date('d.m.Y', $leader->last_date);
 									$userComments = $leader->user_comments;
 									$userGameCount = $leader->game_count;
 									$userProgress = floor($userScore * 100 / $maxScore);

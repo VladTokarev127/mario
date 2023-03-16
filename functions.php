@@ -671,7 +671,7 @@ function get_sorted_data()
 		$userScore = $leader->user_score;
 		$userComments = $leader->user_comments;
 		$userScoreText = number_format($leader->user_score, 0, '.', ' ');;
-		$userLastDate = $leader->last_date;
+		$userLastDate = date('d.m.Y', $leader->last_date);
 		$userGameCount = $leader->game_count;
 		$userProgress = floor($userScore * 100 / $maxScore);
 		um_fetch_user($userID);
@@ -762,7 +762,7 @@ function get_leaders() {
 		$userName = $user->user_nicename . '; ' . $userFullName;
 		$userScore = get_the_author_meta('user_score', $ID);
 		$lastDate = get_the_author_meta('last_date', $ID);
-		$gameCount = get_the_author_meta('game_counts', $ID);
+		$gameCount = empty(get_the_author_meta('game_counts', $ID)) ? 1 : get_the_author_meta('game_counts', $ID);
 		um_fetch_user($ID);
 		$userEmail = um_user('user_email');
 		$count = $wpdb->get_var("SELECT COUNT(*) FROM wp_comments WHERE comment_author_email = '$userEmail'");
@@ -778,7 +778,7 @@ function get_leaders() {
 	foreach($leaderArray as $key=>$leader) {
 		$userID = $leader['ID'];
 		$userScore = $leader['user_score'];
-		$lastDate = $leader['last_date'];
+		$lastDate = strtotime($leader['last_date']);
 		$userName = $leader['user_name'];
 		$userComments = $leader['user_comments'];
 		$gameCount = $leader['game_count'];
